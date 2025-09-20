@@ -1,0 +1,14 @@
+{
+  "watch": ["src"],
+  "ext": "js,json",
+  "ignore": [
+    "src/db/db.json",
+    "src/uploads/*",
+    "src/logs/*",
+    ".env",
+    "node_modules/*",
+    "*.tmp",
+    "*.swp"
+  ],
+  "exec": "node src/index.js"
+}

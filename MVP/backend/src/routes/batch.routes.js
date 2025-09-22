@@ -52,6 +52,7 @@ router.post('/:batchId/verify', async (req, res, next) => {
     if(!batch) return res.status(404).json({ ok: false, error: 'Batch not found' });
     const recomputed = sha256(batch.metadata);
     const ok = recomputed === batch.metadataHash;
+    const block = await appendBlock({ type: 'BATCH_VERIFY', dataHash: batch.metadataHash, payload: { batchId: batch.id, farmerId: batch.farmerId } });
     res.json({ ok: true, verified: ok, recomputed, metadataHash: batch.metadataHash });
   } catch (err) { next(err); }
 });

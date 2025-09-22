@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Agricultural Supply Chain Design System - Visual-first, friendly, accessible */
+
+@layer base {
+  :root {
+    --background: 120 20% 98%;
+    --foreground: 120 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 120 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 120 15% 15%;
+
+    --primary: 120 60% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 80% 85%;
+    --secondary-foreground: 45 60% 25%;
+
+    --muted: 120 20% 95%;
+    --muted-foreground: 120 10% 50%;
+
+    --accent: 200 70% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 20% 88%;
+    --input: 120 20% 92%;
+    --ring: 120 60% 45%;
+
+    /* Agricultural themed colors */
+    --farm-green: 120 60% 45%;
+    --farm-green-light: 120 50% 70%;
+    --earth-brown: 30 40% 55%;
+    --harvest-gold: 45 90% 65%;
+    --sky-blue: 200 70% 50%;
+    --crop-orange: 25 85% 60%;
+
+    /* Gradients */
+    --gradient-farm: linear-gradient(135deg, hsl(var(--farm-green)), hsl(var(--farm-green-light)));
+    --gradient-earth: linear-gradient(135deg, hsl(var(--earth-brown)), hsl(var(--harvest-gold)));
+    --gradient-sky: linear-gradient(135deg, hsl(var(--sky-blue)), hsl(var(--accent)));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--farm-green) / 0.15);
+    --shadow-card: 0 8px 30px -8px hsl(var(--foreground) / 0.1);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 120 15% 8%;
+    --foreground: 120 20% 92%;
+
+    --card: 120 15% 10%;
+    --card-foreground: 120 20% 92%;
+
+    --popover: 120 15% 10%;
+    --popover-foreground: 120 20% 92%;
+
+    --primary: 120 50% 55%;
+    --primary-foreground: 120 15% 8%;
+
+    --secondary: 45 60% 20%;
+    --secondary-foreground: 45 80% 85%;
+
+    --muted: 120 15% 15%;
+    --muted-foreground: 120 10% 70%;
+
+    --accent: 200 60% 60%;
+    --accent-foreground: 120 15% 8%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 15% 20%;
+    --input: 120 15% 18%;
+    --ring: 120 50% 55%;
+
+    /* Dark mode agricultural colors */
+    --farm-green: 120 50% 55%;
+    --farm-green-light: 120 40% 70%;
+    --earth-brown: 30 30% 45%;
+    --harvest-gold: 45 80% 60%;
+    --sky-blue: 200 60% 60%;
+    --crop-orange: 25 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

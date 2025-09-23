@@ -6,6 +6,8 @@ import React, {
   ReactNode,
 } from "react";
 
+type UserRole = "farmer" | "validator" | "distributor";
+
 interface Farmer {
   id: string;
   name: string;
@@ -31,6 +33,7 @@ interface ValidatorData {
 }
 
 interface AppState {
+  userRole: UserRole | null;
   farmer: Farmer | null;
   batches: Batch[];
   distributorData: DistributorData;
@@ -39,12 +42,14 @@ interface AppState {
 
 interface AppContextType {
   // State
+  userRole: UserRole | null;
   farmer: Farmer | null;
   batches: Batch[];
   distributorData: DistributorData;
   validatorData: ValidatorData;
 
   // Actions
+  setUserRole: (role: UserRole | null) => void;
   setFarmer: (farmer: Farmer | null) => void;
   setBatches: (batches: Batch[]) => void;
   addBatch: (batch: Batch) => void;
@@ -58,6 +63,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 const STORAGE_KEY = "agri-mvp-app-state";
 
 const initialState: AppState = {
+  userRole: null,
   farmer: null,
   batches: [],
   distributorData: {},
@@ -110,6 +116,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     saveToStorage(state);
   }, [state]);
 
+  const setUserRole = (userRole: UserRole | null) => {
+    setState((prev) => ({ ...prev, userRole }));
+  };
+
   const setFarmer = (farmer: Farmer | null) => {
     setState((prev) => ({ ...prev, farmer }));
   };
@@ -137,12 +147,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
   const contextValue: AppContextType = {
     // State
+    userRole: state.userRole,
     farmer: state.farmer,
     batches: state.batches,
     distributorData: state.distributorData,
     validatorData: state.validatorData,
 
     // Actions
+    setUserRole,
     setFarmer,
     setBatches,
     addBatch,
@@ -164,4 +176,4 @@ export const useAppContext = () => {
   return context;
 };
 
-export type { Farmer, Batch, DistributorData, ValidatorData };
+export type { UserRole, Farmer, Batch, DistributorData, ValidatorData };

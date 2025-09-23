@@ -2,20 +2,25 @@ import { useState } from "react";
 import FarmerSection from "@/components/FarmerSection";
 import ValidatorSection from "@/components/ValidatorSection";
 import DistributorSection from "@/components/DistributorSection";
+import DebugPanel from "@/components/DebugPanel";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { useAppContext } from "@/contexts/AppContext";
 
 type ActiveSection = "home" | "farmers" | "validators" | "distributors";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState<ActiveSection>("home");
+  const { farmer, batches } = useAppContext();
 
   if (activeSection === "farmers") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 p-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-farm-green">🌱 Farm Supply Chain</h1>
+            <h1 className="text-3xl font-bold text-farm-green">
+              🌱 Farm Supply Chain
+            </h1>
             <Button onClick={() => setActiveSection("home")} variant="ghost">
               ← Back to Home
             </Button>
@@ -31,7 +36,9 @@ const Index = () => {
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 p-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-sky-blue">✅ Farm Supply Chain</h1>
+            <h1 className="text-3xl font-bold text-sky-blue">
+              ✅ Farm Supply Chain
+            </h1>
             <Button onClick={() => setActiveSection("home")} variant="ghost">
               ← Back to Home
             </Button>
@@ -49,7 +56,9 @@ const Index = () => {
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 p-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-crop-orange">🚛 Farm Supply Chain</h1>
+            <h1 className="text-3xl font-bold text-crop-orange">
+              🚛 Farm Supply Chain
+            </h1>
             <Button onClick={() => setActiveSection("home")} variant="ghost">
               ← Back to Home
             </Button>
@@ -87,9 +96,15 @@ const Index = () => {
             </div>
             <div className="p-6 space-y-4">
               <div className="text-center space-y-2">
-                <p className="text-sm text-muted-foreground">✅ Register with just your name</p>
-                <p className="text-sm text-muted-foreground">✅ Get your Farmer ID & QR code</p>
-                <p className="text-sm text-muted-foreground">✅ Create batches with crop icons</p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ Register with just your name
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ Get your Farmer ID & QR code
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ Create batches with crop icons
+                </p>
               </div>
               <Button
                 onClick={() => setActiveSection("farmers")}
@@ -111,9 +126,15 @@ const Index = () => {
             </div>
             <div className="p-6 space-y-4">
               <div className="text-center space-y-2">
-                <p className="text-sm text-muted-foreground">✅ Scan farmer & batch QR codes</p>
-                <p className="text-sm text-muted-foreground">✅ Verify authenticity</p>
-                <p className="text-sm text-muted-foreground">✅ One-click validation</p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ Scan farmer & batch QR codes
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ Verify authenticity
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ One-click validation
+                </p>
               </div>
               <Button
                 onClick={() => setActiveSection("validators")}
@@ -130,14 +151,22 @@ const Index = () => {
           <div className="bg-card rounded-2xl shadow-card overflow-hidden hover:shadow-soft transition-all duration-300 hover:scale-105">
             <div className="bg-gradient-earth p-8 text-center">
               <div className="text-6xl mb-4">🚛</div>
-              <h2 className="text-2xl font-bold text-white mb-2">Distributors</h2>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Distributors
+              </h2>
               <p className="text-white/90">Scan & Purchase</p>
             </div>
             <div className="p-6 space-y-4">
               <div className="text-center space-y-2">
-                <p className="text-sm text-muted-foreground">✅ Scan validated batch QR codes</p>
-                <p className="text-sm text-muted-foreground">✅ View crop details</p>
-                <p className="text-sm text-muted-foreground">✅ One-click purchase</p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ Scan validated batch QR codes
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ View crop details
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  ✅ One-click purchase
+                </p>
               </div>
               <Button
                 onClick={() => setActiveSection("distributors")}
@@ -151,31 +180,79 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Current Status */}
+        {(farmer || batches.length > 0) && (
+          <div className="mt-8 bg-card rounded-2xl shadow-card p-6">
+            <h3 className="text-lg font-bold mb-4 text-center">
+              📊 Current Status
+            </h3>
+            <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+              {farmer && (
+                <div className="bg-green-50 rounded-lg p-4 text-center">
+                  <div className="text-green-600 font-semibold">
+                    👨‍🌾 Farmer Registered
+                  </div>
+                  <div className="text-sm text-green-700">{farmer.name}</div>
+                </div>
+              )}
+              {batches.length > 0 && (
+                <div className="bg-blue-50 rounded-lg p-4 text-center">
+                  <div className="text-blue-600 font-semibold">
+                    📦 Batches Created
+                  </div>
+                  <div className="text-sm text-blue-700">
+                    {batches.length} batches
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Debug Panel */}
+        <div className="mt-8">
+          <DebugPanel />
+        </div>
+
         {/* How it Works */}
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold mb-8 text-foreground">How it Works</h3>
+          <h3 className="text-2xl font-bold mb-8 text-foreground">
+            How it Works
+          </h3>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="flex items-center gap-4">
-              <div className="bg-farm-green text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">1</div>
+              <div className="bg-farm-green text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
               <div className="text-left">
                 <p className="font-semibold">Farmers Register</p>
-                <p className="text-sm text-muted-foreground">Get ID & create batches</p>
+                <p className="text-sm text-muted-foreground">
+                  Get ID & create batches
+                </p>
               </div>
             </div>
             <div className="text-2xl">→</div>
             <div className="flex items-center gap-4">
-              <div className="bg-sky-blue text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">2</div>
+              <div className="bg-sky-blue text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
               <div className="text-left">
                 <p className="font-semibold">Validators Check</p>
-                <p className="text-sm text-muted-foreground">Scan & validate quality</p>
+                <p className="text-sm text-muted-foreground">
+                  Scan & validate quality
+                </p>
               </div>
             </div>
             <div className="text-2xl">→</div>
             <div className="flex items-center gap-4">
-              <div className="bg-crop-orange text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">3</div>
+              <div className="bg-crop-orange text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
               <div className="text-left">
                 <p className="font-semibold">Distributors Buy</p>
-                <p className="text-sm text-muted-foreground">Purchase validated batches</p>
+                <p className="text-sm text-muted-foreground">
+                  Purchase validated batches
+                </p>
               </div>
             </div>
           </div>

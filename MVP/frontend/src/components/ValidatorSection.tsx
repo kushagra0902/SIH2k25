@@ -107,9 +107,9 @@ export default function ValidatorSection() {
                       disabled={!manualInput.trim()}
                       variant="sky"
                       size="xl"
-                      className="w-full"
+                      className="w-full"                                          
                     >
-                      📱 Simulate QR Input
+                      📱 QR Input
                     </Button>
                     <Button
                       onClick={() => {

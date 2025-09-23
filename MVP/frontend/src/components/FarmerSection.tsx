@@ -6,20 +6,7 @@ import { Label } from "@/components/ui/label";
 import QRCode from "qrcode";
 import { registerFarmerAPI } from "@/api/farmerAPI";
 import { createBatch } from "@/api/batch.api";
-
-interface Farmer {
-  id: string;
-  name: string;
-  qrCode: string;
-}
-
-interface Batch {
-  id: string;
-  farmerId: string;
-  cropType: string;
-  qrCode: string;
-  createdAt: Date;
-}
+import { useAppContext, type Farmer, type Batch } from "@/contexts/AppContext";
 
 interface BatchForm {
   crop: string;
@@ -30,9 +17,8 @@ interface BatchForm {
 }
 
 export default function FarmerSection() {
-  const [farmer, setFarmer] = useState<Farmer | null>(null);
+  const { farmer, batches, setFarmer, addBatch } = useAppContext();
   const [farmerName, setFarmerName] = useState("");
-  const [batches, setBatches] = useState<Batch[]>([]);
   const [showBatchForm, setShowBatchForm] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [isCreatingBatch, setIsCreatingBatch] = useState(false);
@@ -101,7 +87,7 @@ export default function FarmerSection() {
           createdAt: new Date(),
         };
 
-        setBatches([newBatch, ...batches]);
+        addBatch(newBatch);
         setShowBatchForm(false);
         setBatchForm({
           crop: "",

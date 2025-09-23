@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:4000/api"; // Replace with your server URL
+const API_BASE_URL = "http://10.24.0.198:4000/api"; // Replace with your server URL
 
 interface RequestOptions extends RequestInit {
   headers?: Record<string, string>;

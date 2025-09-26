@@ -30,7 +30,7 @@ import { makeHttpRequest } from "../apiHelper/httpReq";
 export async function createBatch(formData: FormData)  {
   const url = `/batches/create`;
   try {
-    const response = await fetch(`http://localhost:4000/api${url}`, {
+    const response = await fetch(`https://sih2k25-cdy3.onrender.com/api${url}`, {
       method: "POST",
       body: formData, // FormData for file uploads
     });
